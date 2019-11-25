@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Resources;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,11 +8,6 @@ namespace TronicControls
 {
     public partial class ToggleButton : Control
     {
-        #region Variables
-        private Rectangle _contentRectangle = Rectangle.Empty;
-        private int _padx = 0;
-        #endregion
-
         public ToggleButton()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw | ControlStyles.UserPaint
@@ -19,30 +16,20 @@ namespace TronicControls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            e.Graphics.ResetClip();
             switch (ToggleStyle)
             {
                 case ToggleButtonStyle.Slider:
-                    MinimumSize = new Size(40, 20);
-                    _contentRectangle = e.ClipRectangle;
                     DrawSliderStyle(e);
                     break;
                 case ToggleButtonStyle.Classic:
-                    MinimumSize = new Size(20, 20);
-                    _contentRectangle = e.ClipRectangle;
                     DrawClassicStyle(e);
                     break;
-            }
-
-            base.OnPaint(e);
+            }            
         }
 
         #region ClassicStyle
         private void DrawClassicStyle(PaintEventArgs e)
         {
-            e.Graphics.ResetClip();
-            _contentRectangle = e.ClipRectangle;
-
             var sf = new StringFormat
             {
                 LineAlignment = StringAlignment.Center,
@@ -51,103 +38,99 @@ namespace TronicControls
             if (ToggleState)
             {
                 // Button is switched on
-                using (var sb = new SolidBrush(BackColorOn))
+                if (ImageOn != null)
                 {
-                    e.Graphics.FillRectangle(sb, e.ClipRectangle);
-                    //ControlPaint.DrawBorder(e.Graphics, _contentRectangle, BorderColor, BorderStyle);
-
-                    ControlPaint.DrawBorder(e.Graphics, _contentRectangle,
+                    e.Graphics.DrawImage(ImageOn, ClientRectangle);
+                } else
+                {
+                    using (var sb = new SolidBrush(BackColorOn)) e.Graphics.FillRectangle(sb, ClientRectangle);                                            
+                }
+                ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
                                             SystemColors.ControlDark, BorderSize, ButtonBorderStyle.Outset,
                                             SystemColors.ControlDark, BorderSize, ButtonBorderStyle.Outset,
                                             BorderColor, 1, ButtonBorderStyle.Solid,
                                             BorderColor, 1, ButtonBorderStyle.Solid);
 
-                    e.Graphics.DrawString(TextOn, Font, new SolidBrush(ForeColorOn), _contentRectangle, sf);
-                }
+                using (var sbFore = new SolidBrush(ForeColorOn)) e.Graphics.DrawString(TextOn, Font, sbFore, ClientRectangle, sf);                                
             }
             else
             {
                 // Button is switched off
-                using (var sb = new SolidBrush(BackColorOff))
+                if (ImageOff != null)
                 {
-                    e.Graphics.FillRectangle(sb, e.ClipRectangle);
-                    ControlPaint.DrawBorder(e.Graphics, _contentRectangle,
+                    e.Graphics.DrawImage(ImageOff, ClientRectangle);
+                } else
+                {
+                    using (var sb = new SolidBrush(BackColorOff)) e.Graphics.FillRectangle(sb, ClientRectangle);                    
+                }
+                ControlPaint.DrawBorder(e.Graphics, ClientRectangle,
                                             BorderColor, 1, ButtonBorderStyle.Solid,
                                             BorderColor, 1, ButtonBorderStyle.Solid,
                                             SystemColors.ControlLight, BorderSize, ButtonBorderStyle.Outset,
                                             SystemColors.ControlLight, BorderSize, ButtonBorderStyle.Outset);
 
-                    e.Graphics.DrawString(TextOff, Font, new SolidBrush(ForeColorOff), _contentRectangle, sf);
-                }
+                using (var sbFore = new SolidBrush(ForeColorOff)) e.Graphics.DrawString(TextOff, Font, sbFore, ClientRectangle, sf);                                
             }
         }
         #endregion
 
         #region SliderStyle
-        // ReSharper disable InconsistentNaming
-        private readonly Point[] slidePoints = new Point[4];
-        private Point p1, p2, p3, p4;
-        // ReSharper restore InconsistentNaming
+        private Point _p1, _p2, _p3, _p4;
 
-        private Point[] SliderPoints()
+        private Point[] SliderPoints(int padX, Rectangle rect)
         {
-            p1 = new Point(_padx, _contentRectangle.Y);
-            p2 = new Point(_padx, _contentRectangle.Bottom - 1);
-            p4 = new Point((p1.X + (_contentRectangle.Width / 2)) - 1, _contentRectangle.Y);
-            p3 = new Point(p4.X - 1, _contentRectangle.Bottom - 1);
+            Point[] slidePoints = new Point[4];            
 
-            if (p4.X == _contentRectangle.Right)
-                p3 = new Point(p4.X, _contentRectangle.Bottom);
+            _p1 = new Point(padX, rect.Y);
+            _p2 = new Point(padX, rect.Bottom - 1);
+            _p4 = new Point((_p1.X + (rect.Width / 2)) - 1, rect.Y);
+            _p3 = new Point(_p4.X - 1, rect.Bottom - 1);
 
-            slidePoints[0] = p1;
-            slidePoints[1] = p2;
-            slidePoints[2] = p3;
-            slidePoints[3] = p4;
+            if (_p4.X == rect.Right)
+                _p3 = new Point(_p4.X, rect.Bottom);
+
+            slidePoints[0] = _p1;
+            slidePoints[1] = _p2;
+            slidePoints[2] = _p3;
+            slidePoints[3] = _p4;
             return slidePoints;
         }
 
         private void DrawSliderStyle(PaintEventArgs e)
         {
-            e.Graphics.ResetClip();
-            _contentRectangle = e.ClipRectangle;
-
-            if (ToggleState)
-                _padx = _contentRectangle.Right - (_contentRectangle.Width / 2);
-            else
-                _padx = 0;
+            var padX = 0;
+            if (ToggleState) padX = ClientRectangle.Right - (ClientRectangle.Width / 2);            
 
             using (var sb = new SolidBrush(BackColor))
             {
-                e.Graphics.FillRectangle(sb, e.ClipRectangle);
+                e.Graphics.FillRectangle(sb, ClientRectangle);
             }
 
             // Paint border
-            ControlPaint.DrawBorder(e.Graphics, _contentRectangle, BorderColor, BorderStyle);
+            ControlPaint.DrawBorder(e.Graphics, ClientRectangle, BorderColor, BorderStyle);
 
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            var clr = _padx == 0 ? BackColorOff : BackColorOn;
+            var clr = padX == 0 ? BackColorOff : BackColorOn;
 
             using (var sb = new SolidBrush(clr))
             {
-                e.Graphics.FillPolygon(sb, SliderPoints());
+                e.Graphics.FillPolygon(sb, SliderPoints(padX, ClientRectangle));
             }
 
-            var rect = new Rectangle(p1, new Size(p3.X - p1.X, p2.Y - p1.Y));
+            var rect = new Rectangle(_p1, new Size(_p3.X - _p1.X, _p2.Y - _p1.Y));
             var sf = new StringFormat
             {
                 LineAlignment = StringAlignment.Center,
                 Alignment = StringAlignment.Center
             };
 
-            if (_padx == 0)
+            if (padX == 0)
             {
-                //e.Graphics.DrawString(TextOff, Font, new SolidBrush(ForeColorOff), new PointF(_padx + ((_contentRectangle.Width / 2) / 6), _contentRectangle.Y + (_contentRectangle.Height / 4)));
-                e.Graphics.DrawString(TextOff, Font, new SolidBrush(ForeColorOff), rect, sf);
+                using (var sbFore = new SolidBrush(ForeColorOff)) e.Graphics.DrawString(TextOff, Font, sbFore, rect, sf);                
             }
             else
             {
-                //e.Graphics.DrawString(TextOn, Font, new SolidBrush(ForeColorOn), new PointF(_padx + ((_contentRectangle.Width / 2) / 4), _contentRectangle.Y + (_contentRectangle.Height / 4)));
-                e.Graphics.DrawString(TextOn, Font, new SolidBrush(ForeColorOn), rect, sf);
+                using (var sbFore = new SolidBrush(ForeColorOn)) e.Graphics.DrawString(TextOn, Font, sbFore, rect, sf);
             }
         }
         #endregion
@@ -156,9 +139,7 @@ namespace TronicControls
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
-
             ToggleState = !ToggleState;
-
             Invalidate();
         }
         #endregion
@@ -171,6 +152,9 @@ namespace TronicControls
         private Color _foreColorOff = Color.Red;
         private Color _backColorOff = SystemColors.ControlLight;
         private string _textOff = "V";
+
+        private Image _imageOff = null;
+        private Image _imageOn = null;
 
         private bool _toggleState = false;
         private ButtonBorderStyle _border = ButtonBorderStyle.Solid;
@@ -219,6 +203,18 @@ namespace TronicControls
             get { return _foreColorOn; }
             set { _foreColorOn = value; Invalidate(); }
         }
+
+        public Image ImageOn
+        {
+            get { return _imageOn; }
+            set { _imageOn = value; Invalidate(); }
+        }
+
+        public Image ImageOff
+        {
+            get { return _imageOff; }
+            set { _imageOff = value; Invalidate(); }
+        }               
 
         public Color BackColorOn
         {
