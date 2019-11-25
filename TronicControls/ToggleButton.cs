@@ -208,13 +208,22 @@ namespace TronicControls
         {
             get { return _imageOn; }
             set { _imageOn = value; Invalidate(); }
-        }
+        }        
 
         public Image ImageOff
         {
             get { return _imageOff; }
             set { _imageOff = value; Invalidate(); }
-        }               
+        }
+
+        /// <summary>
+        /// Vypln pokud konvertujes do Vizwebu a pouzivas ImageOn
+        /// </summary>
+        public string ImageOnName { get; set; } = null;
+        /// <summary>
+        /// Vypln pokud konvertujes do Vizwebu a pouzivas ImageOff
+        /// </summary>
+        public string ImageOffName { get; set; } = null;
 
         public Color BackColorOn
         {
