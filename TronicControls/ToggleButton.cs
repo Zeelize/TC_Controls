@@ -139,6 +139,11 @@ namespace TronicControls
         protected override void OnClick(EventArgs e)
         {
             base.OnClick(e);
+            if (!ToggleState && Parent.GetType() == typeof(ToggleButtonGroup))
+            {
+                var group = (ToggleButtonGroup)Parent;
+                group.ValidateButtons(this);
+            }
             ToggleState = !ToggleState;
             Invalidate();
         }
