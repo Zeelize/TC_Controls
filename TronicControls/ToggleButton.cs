@@ -147,6 +147,15 @@ namespace TronicControls
             ToggleState = !ToggleState;
             Invalidate();
         }
+
+        public event EventHandler ToggleStateChanged;
+
+        protected virtual void OnToggleStateChange(EventArgs e)
+        {
+            var handler = ToggleStateChanged;
+            if (handler == null) return;
+            handler(this, e);
+        }
         #endregion
 
         #region Properties
@@ -188,7 +197,13 @@ namespace TronicControls
         public bool ToggleState
         {
             get { return _toggleState; }
-            set { _toggleState = value; Invalidate(); }
+            set
+            {
+                if (_toggleState == value) return;
+                _toggleState = value;
+                Invalidate();
+                OnToggleStateChange(EventArgs.Empty);
+            }
         }
 
         public ToggleButtonStyle ToggleStyle

@@ -32,10 +32,10 @@
             this.toggleButton2 = new TronicControls.ToggleButton();
             this.toggleButton1 = new TronicControls.ToggleButton();
             this.toggleButtonGroup1 = new TronicControls.ToggleButtonGroup();
-            this.toggleButton4 = new TronicControls.ToggleButton();
-            this.toggleButton5 = new TronicControls.ToggleButton();
-            this.toggleButton6 = new TronicControls.ToggleButton();
             this.toggleButton7 = new TronicControls.ToggleButton();
+            this.toggleButton6 = new TronicControls.ToggleButton();
+            this.toggleButton5 = new TronicControls.ToggleButton();
+            this.toggleButton4 = new TronicControls.ToggleButton();
             this.toggleButtonGroup1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,51 +119,29 @@
             this.toggleButtonGroup1.Size = new System.Drawing.Size(338, 191);
             this.toggleButtonGroup1.TabIndex = 3;
             // 
-            // toggleButton4
+            // toggleButton7
             // 
-            this.toggleButton4.BackColorOff = System.Drawing.SystemColors.ControlLight;
-            this.toggleButton4.BackColorOn = System.Drawing.SystemColors.ControlLight;
-            this.toggleButton4.BorderColor = System.Drawing.Color.Black;
-            this.toggleButton4.BorderSize = 2;
-            this.toggleButton4.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.toggleButton4.ForeColorOff = System.Drawing.Color.Red;
-            this.toggleButton4.ForeColorOn = System.Drawing.Color.Green;
-            this.toggleButton4.ImageOff = null;
-            this.toggleButton4.ImageOffName = null;
-            this.toggleButton4.ImageOn = null;
-            this.toggleButton4.ImageOnName = null;
-            this.toggleButton4.Location = new System.Drawing.Point(14, 12);
-            this.toggleButton4.Name = "toggleButton4";
-            this.toggleButton4.Size = new System.Drawing.Size(75, 23);
-            this.toggleButton4.TabIndex = 0;
-            this.toggleButton4.Text = "toggleButton4";
-            this.toggleButton4.TextOff = "V";
-            this.toggleButton4.TextOn = "Z";
-            this.toggleButton4.ToggleState = false;
-            this.toggleButton4.ToggleStyle = TronicControls.ToggleButton.ToggleButtonStyle.Classic;
-            // 
-            // toggleButton5
-            // 
-            this.toggleButton5.BackColorOff = System.Drawing.SystemColors.ControlLight;
-            this.toggleButton5.BackColorOn = System.Drawing.SystemColors.ControlLight;
-            this.toggleButton5.BorderColor = System.Drawing.Color.Black;
-            this.toggleButton5.BorderSize = 2;
-            this.toggleButton5.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.toggleButton5.ForeColorOff = System.Drawing.Color.Red;
-            this.toggleButton5.ForeColorOn = System.Drawing.Color.Green;
-            this.toggleButton5.ImageOff = null;
-            this.toggleButton5.ImageOffName = null;
-            this.toggleButton5.ImageOn = null;
-            this.toggleButton5.ImageOnName = null;
-            this.toggleButton5.Location = new System.Drawing.Point(14, 42);
-            this.toggleButton5.Name = "toggleButton5";
-            this.toggleButton5.Size = new System.Drawing.Size(75, 23);
-            this.toggleButton5.TabIndex = 1;
-            this.toggleButton5.Text = "toggleButton5";
-            this.toggleButton5.TextOff = "V";
-            this.toggleButton5.TextOn = "Z";
-            this.toggleButton5.ToggleState = false;
-            this.toggleButton5.ToggleStyle = TronicControls.ToggleButton.ToggleButtonStyle.Classic;
+            this.toggleButton7.BackColorOff = System.Drawing.SystemColors.ControlLight;
+            this.toggleButton7.BackColorOn = System.Drawing.SystemColors.ControlLight;
+            this.toggleButton7.BorderColor = System.Drawing.Color.Black;
+            this.toggleButton7.BorderSize = 2;
+            this.toggleButton7.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.toggleButton7.ForeColorOff = System.Drawing.Color.Red;
+            this.toggleButton7.ForeColorOn = System.Drawing.Color.Green;
+            this.toggleButton7.ImageOff = null;
+            this.toggleButton7.ImageOffName = null;
+            this.toggleButton7.ImageOn = null;
+            this.toggleButton7.ImageOnName = null;
+            this.toggleButton7.Location = new System.Drawing.Point(113, 41);
+            this.toggleButton7.Name = "toggleButton7";
+            this.toggleButton7.Size = new System.Drawing.Size(75, 23);
+            this.toggleButton7.TabIndex = 3;
+            this.toggleButton7.Text = "toggleButton7";
+            this.toggleButton7.TextOff = "V";
+            this.toggleButton7.TextOn = "Z";
+            this.toggleButton7.ToggleState = false;
+            this.toggleButton7.ToggleStyle = TronicControls.ToggleButton.ToggleButtonStyle.Classic;
+            this.toggleButton7.ToggleStateChanged += new System.EventHandler(this.toggleButton4_ToggleStateChanged);
             // 
             // toggleButton6
             // 
@@ -187,29 +165,55 @@
             this.toggleButton6.TextOn = "Z";
             this.toggleButton6.ToggleState = false;
             this.toggleButton6.ToggleStyle = TronicControls.ToggleButton.ToggleButtonStyle.Classic;
+            this.toggleButton6.ToggleStateChanged += new System.EventHandler(this.toggleButton4_ToggleStateChanged);
             // 
-            // toggleButton7
+            // toggleButton5
             // 
-            this.toggleButton7.BackColorOff = System.Drawing.SystemColors.ControlLight;
-            this.toggleButton7.BackColorOn = System.Drawing.SystemColors.ControlLight;
-            this.toggleButton7.BorderColor = System.Drawing.Color.Black;
-            this.toggleButton7.BorderSize = 2;
-            this.toggleButton7.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
-            this.toggleButton7.ForeColorOff = System.Drawing.Color.Red;
-            this.toggleButton7.ForeColorOn = System.Drawing.Color.Green;
-            this.toggleButton7.ImageOff = null;
-            this.toggleButton7.ImageOffName = null;
-            this.toggleButton7.ImageOn = null;
-            this.toggleButton7.ImageOnName = null;
-            this.toggleButton7.Location = new System.Drawing.Point(113, 41);
-            this.toggleButton7.Name = "toggleButton7";
-            this.toggleButton7.Size = new System.Drawing.Size(75, 23);
-            this.toggleButton7.TabIndex = 3;
-            this.toggleButton7.Text = "toggleButton7";
-            this.toggleButton7.TextOff = "V";
-            this.toggleButton7.TextOn = "Z";
-            this.toggleButton7.ToggleState = false;
-            this.toggleButton7.ToggleStyle = TronicControls.ToggleButton.ToggleButtonStyle.Classic;
+            this.toggleButton5.BackColorOff = System.Drawing.SystemColors.ControlLight;
+            this.toggleButton5.BackColorOn = System.Drawing.SystemColors.ControlLight;
+            this.toggleButton5.BorderColor = System.Drawing.Color.Black;
+            this.toggleButton5.BorderSize = 2;
+            this.toggleButton5.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.toggleButton5.ForeColorOff = System.Drawing.Color.Red;
+            this.toggleButton5.ForeColorOn = System.Drawing.Color.Green;
+            this.toggleButton5.ImageOff = null;
+            this.toggleButton5.ImageOffName = null;
+            this.toggleButton5.ImageOn = null;
+            this.toggleButton5.ImageOnName = null;
+            this.toggleButton5.Location = new System.Drawing.Point(14, 42);
+            this.toggleButton5.Name = "toggleButton5";
+            this.toggleButton5.Size = new System.Drawing.Size(75, 23);
+            this.toggleButton5.TabIndex = 1;
+            this.toggleButton5.Text = "toggleButton5";
+            this.toggleButton5.TextOff = "V";
+            this.toggleButton5.TextOn = "Z";
+            this.toggleButton5.ToggleState = false;
+            this.toggleButton5.ToggleStyle = TronicControls.ToggleButton.ToggleButtonStyle.Classic;
+            this.toggleButton5.ToggleStateChanged += new System.EventHandler(this.toggleButton4_ToggleStateChanged);
+            // 
+            // toggleButton4
+            // 
+            this.toggleButton4.BackColorOff = System.Drawing.SystemColors.ControlLight;
+            this.toggleButton4.BackColorOn = System.Drawing.SystemColors.ControlLight;
+            this.toggleButton4.BorderColor = System.Drawing.Color.Black;
+            this.toggleButton4.BorderSize = 2;
+            this.toggleButton4.BorderStyle = System.Windows.Forms.ButtonBorderStyle.Solid;
+            this.toggleButton4.ForeColorOff = System.Drawing.Color.Red;
+            this.toggleButton4.ForeColorOn = System.Drawing.Color.Green;
+            this.toggleButton4.ImageOff = null;
+            this.toggleButton4.ImageOffName = null;
+            this.toggleButton4.ImageOn = null;
+            this.toggleButton4.ImageOnName = null;
+            this.toggleButton4.Location = new System.Drawing.Point(14, 12);
+            this.toggleButton4.Name = "toggleButton4";
+            this.toggleButton4.Size = new System.Drawing.Size(75, 23);
+            this.toggleButton4.TabIndex = 0;
+            this.toggleButton4.Text = "toggleButton4";
+            this.toggleButton4.TextOff = "V";
+            this.toggleButton4.TextOn = "Z";
+            this.toggleButton4.ToggleState = false;
+            this.toggleButton4.ToggleStyle = TronicControls.ToggleButton.ToggleButtonStyle.Classic;
+            this.toggleButton4.ToggleStateChanged += new System.EventHandler(this.toggleButton4_ToggleStateChanged);
             // 
             // Form1
             // 

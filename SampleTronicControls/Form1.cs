@@ -16,5 +16,10 @@ namespace SampleTronicControls
         {
             InitializeComponent();
         }
+
+        private void toggleButton4_ToggleStateChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(sender + "changed");
+        }
     }
 }
